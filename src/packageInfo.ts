@@ -21,6 +21,7 @@ export async function getPackageInfo(name: string): Promise<PackageInfo> {
 }
 
 export interface PackageInfo {
+  name: string;
   version: string;
   dependencies: number;
   size: number;
@@ -30,6 +31,7 @@ export interface PackageInfo {
 }
 
 interface NpmRegistryInfo {
+  name: string;
   'dist-tags': {
     latest: string;
   };
@@ -58,8 +60,9 @@ function npmRegistryInfoToPackageInfo(
   const versionInfo = npm.versions[version];
 
   return {
+    name: npm.name,
     version,
-    dependencies: Object.keys(versionInfo.dependencies).length,
+    dependencies: Object.keys(versionInfo.dependencies || {}).length,
     size: versionInfo.dist.unpackedSize,
     date: npm.time[version],
     license: npm.license,
