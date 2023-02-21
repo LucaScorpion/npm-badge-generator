@@ -1,0 +1,29 @@
+{
+  "name": "npm-badge-generator",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "build/index.js",
+  "scripts": {
+    "start": "ts-node-dev src/index.ts",
+    "lint": "eslint \"src/**/*.ts\" --max-warnings 0",
+    "format": "npm run lint -- --fix",
+    "build": "tsc"
+  },
+  "author": "Luca Scalzotto (https://github.com/LucaScorpion)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.4",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.5"
+  }
+}
