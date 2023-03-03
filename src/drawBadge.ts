@@ -13,6 +13,7 @@ export function drawBadge(info: PackageInfo): PNGStream {
 
   const canvas = new Canvas(width, height);
   const ctx = canvas.getContext('2d');
+  ctx.antialias = 'subpixel';
 
   drawBox(ctx, MARGIN, width, height);
   drawNpmLogo(ctx, MARGIN, '');
@@ -21,6 +22,29 @@ export function drawBadge(info: PackageInfo): PNGStream {
   drawDownloads(ctx, MARGIN, info.monthlyDownloads, 'monthly');
 
   return canvas.createPNGStream();
+}
+
+function drawBox(
+  ctx: CanvasRenderingContext2D,
+  margin: number,
+  width: number,
+  height: number
+) {
+  const inset = 2;
+  ctx.strokeStyle = 'rgb(203, 56, 55)';
+  ctx.fillStyle = 'rgb(244, 244, 242)';
+  ctx.lineCap = 'butt';
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.lineTo(inset, inset);
+  ctx.lineTo(width - inset, inset);
+  ctx.lineTo(width - inset, height - inset);
+  ctx.lineTo(inset, height - inset);
+  ctx.lineTo(inset, inset);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.fill();
 }
 
 function drawNpmLogo(
@@ -57,29 +81,6 @@ function drawNpmInstall(
     margin + (style == 'mini' ? 50 : style == 'compact' ? 86 : 106),
     margin + 3
   );
-}
-
-function drawBox(
-  ctx: CanvasRenderingContext2D,
-  margin: number,
-  width: number,
-  height: number
-) {
-  const inset = 2;
-  ctx.strokeStyle = 'rgb(203, 56, 55)';
-  ctx.fillStyle = 'rgb(244, 244, 242)';
-  ctx.lineCap = 'butt';
-  ctx.lineJoin = 'round';
-  ctx.lineWidth = 4;
-  ctx.beginPath();
-  ctx.lineTo(inset, inset);
-  ctx.lineTo(width - inset, inset);
-  ctx.lineTo(width - inset, height - inset);
-  ctx.lineTo(inset, height - inset);
-  ctx.lineTo(inset, inset);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.fill();
 }
 
 function drawDependencies(
