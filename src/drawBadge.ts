@@ -1,7 +1,10 @@
 import { Canvas, CanvasRenderingContext2D, PNGStream } from 'canvas';
 import { PackageInfo } from './packageInfo';
+import { initFonts } from './fonts';
 
 const MARGIN = 4;
+
+initFonts();
 
 export function drawBadge(info: PackageInfo): PNGStream {
   const width = 400;
@@ -24,10 +27,10 @@ function drawNpmLogo(
 ): void {
   ctx.font =
     style == 'mini'
-      ? 'bold 22px gubblebum'
+      ? '22px gubblebum'
       : style == 'compact'
-      ? 'bold 40px gubblebum'
-      : 'bold 50px gubblebum';
+      ? '40px gubblebum'
+      : '50px gubblebum';
   ctx.fillStyle = 'rgb(203, 56, 55)';
   ctx.textBaseline = 'top';
   ctx.fillText(
