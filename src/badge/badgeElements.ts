@@ -1,6 +1,7 @@
 import { PackageInfo } from '../packageInfo';
 import { formatNumber } from '../formatNumber';
 import { COLORS } from './colors';
+import { timeAgo } from '../timeAgo';
 
 export interface BadgeElements {
   npmLogo: TextElement;
@@ -8,6 +9,7 @@ export interface BadgeElements {
   version: TextElement;
   dependencyCount: TextElement;
   weeklyDownload: TextElement;
+  updated: TextElement;
 }
 
 export interface TextElement {
@@ -44,6 +46,11 @@ export function getBadgeElements(pkg: PackageInfo): BadgeElements {
       text: `${formatNumber(pkg.weeklyDownloads)} weekly download${
         pkg.weeklyDownloads === 1 ? '' : 's'
       }`,
+      font: '13px "Ubuntu Mono Regular"',
+      color: COLORS.darkGrey,
+    },
+    updated: {
+      text: `updated ${timeAgo(pkg.date)}`,
       font: '13px "Ubuntu Mono Regular"',
       color: COLORS.darkGrey,
     },

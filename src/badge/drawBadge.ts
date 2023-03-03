@@ -30,7 +30,7 @@ export function drawBadge(pkg: PackageInfo): PNGStream {
 
   const elems = getBadgeElements(pkg);
   const pkgInfoLeft = [elems.dependencyCount, elems.weeklyDownload];
-  const pkgInfoRight = [elems.version];
+  const pkgInfoRight = [elems.version, elems.updated];
 
   const installCommandSize = getTextSize(ctx, [elems.installCommand], 0);
   const pkgInfoLeftSize = getTextSize(ctx, pkgInfoLeft, LINE_SPACING);
