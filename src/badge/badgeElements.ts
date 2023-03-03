@@ -24,21 +24,21 @@ export function getBadgeElements(pkg: PackageInfo): BadgeElements {
     },
     installCommand: {
       text: `npm install ${pkg.name}`,
-      font: '14px ubuntu-b',
+      font: '14px "Ubuntu Mono Bold"',
       color: COLORS.darkGrey,
     },
     dependencyCount: {
       text: `${pkg.dependencies} dependenc${
         pkg.dependencies === 1 ? 'y' : 'ies'
       }`,
-      font: '13px ubuntu-r',
+      font: '13px "Ubuntu Mono Regular"',
       color: COLORS.darkGrey,
     },
     weeklyDownload: {
       text: `${formatNumber(pkg.monthlyDownloads)} weekly download${
         pkg.monthlyDownloads === 1 ? '' : 's'
       }`,
-      font: '13px ubuntu-r',
+      font: '13px "Ubuntu Mono Regular"',
       color: COLORS.darkGrey,
     },
   };

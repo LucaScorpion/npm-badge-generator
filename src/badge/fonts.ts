@@ -3,8 +3,16 @@ import { registerFont } from 'canvas';
 
 const fonts = [
   {
-    file: fontPath('GUBBLO___.ttf'),
+    file: fontPath('Gubblebum_Blocky.ttf'),
     family: 'Gubblebum Blocky',
+  },
+  {
+    file: fontPath('Ubuntu_Mono_Bold.ttf'),
+    family: 'Ubuntu Mono Bold',
+  },
+  {
+    file: fontPath('Ubuntu_Mono_Regular.ttf'),
+    family: 'Ubuntu Mono Regular',
   },
 ];
 
