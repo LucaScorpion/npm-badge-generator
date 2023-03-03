@@ -1,9 +1,12 @@
 import { Canvas, CanvasRenderingContext2D, PNGStream } from 'canvas';
-import { PackageInfo } from './packageInfo';
+import { PackageInfo } from '../packageInfo';
 import { initFonts } from './fonts';
-import { formatNumber } from './formatNumber';
+import { formatNumber } from '../formatNumber';
+import { getBadgeElements } from './badgeElements';
+import { drawText } from './drawText';
 
 const MARGIN = 4;
+const LINE_SPACING = 2;
 
 const COLORS = {
   red: 'rgb(203, 56, 55)',
@@ -13,21 +16,31 @@ const COLORS = {
 
 initFonts();
 
-export function drawBadge(info: PackageInfo): PNGStream {
+export function drawBadge(pkg: PackageInfo): PNGStream {
   const width = 400;
   const height = 80;
 
   const canvas = new Canvas(width, height);
   const ctx = canvas.getContext('2d');
   ctx.antialias = 'subpixel';
+  ctx.textBaseline = 'top';
 
   drawBox(ctx, width, height);
   drawNpmLogo(ctx, MARGIN);
 
+  const elems = getBadgeElements(pkg);
   ctx.fillStyle = COLORS.darkGrey;
-  drawNpmInstall(ctx, MARGIN, info.name);
-  drawDependencies(ctx, MARGIN, info.dependencies);
-  drawDownloads(ctx, MARGIN, info.monthlyDownloads, 'monthly');
+
+  const x = MARGIN + 106;
+  let y = MARGIN + 3;
+
+  const installTextSize = drawText(ctx, elems.installText, x, y);
+  y += LINE_SPACING + installTextSize.height;
+
+  const depsTextSize = drawText(ctx, elems.dependenciesText, x, y);
+  y += LINE_SPACING + depsTextSize.height;
+
+  drawText(ctx, elems.downloadsText, x, y);
 
   return canvas.createPNGStream();
 }
@@ -53,45 +66,5 @@ function drawBox(ctx: CanvasRenderingContext2D, width: number, height: number) {
 function drawNpmLogo(ctx: CanvasRenderingContext2D, margin: number): void {
   ctx.font = '50px gubblebum';
   ctx.fillStyle = COLORS.red;
-  ctx.textBaseline = 'top';
   ctx.fillText('npm', margin + 7, 1);
-}
-
-function drawNpmInstall(
-  ctx: CanvasRenderingContext2D,
-  margin: number,
-  name: string
-): void {
-  ctx.font = '14px ubuntu-b';
-  ctx.textBaseline = 'top';
-  ctx.fillText(`npm install ${name}`, margin + 106, margin + 3);
-}
-
-function drawDependencies(
-  ctx: CanvasRenderingContext2D,
-  margin: number,
-  dependencies: number
-): void {
-  ctx.font = '13px ubuntu-r';
-  ctx.fillText(
-    `${dependencies} dependenc${dependencies === 1 ? 'y' : 'ies'}`,
-    margin + 106,
-    margin + 19
-  );
-}
-
-function drawDownloads(
-  ctx: CanvasRenderingContext2D,
-  margin: number,
-  downloadsNum: number,
-  downloadsTime: string
-) {
-  ctx.font = '13px ubuntu-r';
-  ctx.fillText(
-    `${formatNumber(downloadsNum)} ${downloadsTime} download${
-      downloadsNum === 1 ? '' : 's'
-    }`,
-    margin + 106,
-    margin + 19 + 12 * 2
-  );
 }

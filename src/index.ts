@@ -1,6 +1,6 @@
 import express, { Request } from 'express';
 import { getPackageInfo } from './packageInfo';
-import { drawBadge } from './drawBadge';
+import { drawBadge } from './badge/drawBadge';
 
 const app = express();
 

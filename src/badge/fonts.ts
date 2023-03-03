@@ -16,5 +16,5 @@ export function initFonts(): void {
 }
 
 function fontPath(file: string): string {
-  return path.join(__dirname, '../fonts', file);
+  return path.join(__dirname, '../../fonts', file);
 }
