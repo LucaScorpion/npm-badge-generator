@@ -10,36 +10,65 @@ const PADDING = 9;
 const LINE_SPACING = 2;
 const LOGO_SPACING_RIGHT = 14;
 const PKG_INFO_Y = 7;
+const PKG_INFO_COL_SPACING = 14;
 const NPM_LOGO_Y = 1;
 const NPM_LOGO_X = BORDER_WIDTH + PADDING;
 
 initFonts();
 
+/*
++---------------------------------------------------+
+| N    npm install package                          |
+|  P   10 dependencies         version 1.2.3        |
+|   M  1,000 weekly downloads  updated 5 months ago |
++---------------------------------------------------+
+ */
 export function drawBadge(pkg: PackageInfo): PNGStream {
   const canvas = new Canvas(0, 0);
   const ctx = canvas.getContext('2d');
   ctx.antialias = 'subpixel';
 
   const elems = getBadgeElements(pkg);
-  const pkgInfo = [
-    elems.installCommand,
-    elems.version,
-    elems.dependencyCount,
-    elems.weeklyDownload,
-  ];
+  const pkgInfoLeft = [elems.dependencyCount, elems.weeklyDownload];
+  const pkgInfoRight = [elems.version];
 
+  const installCommandSize = getTextSize(ctx, [elems.installCommand], 0);
+  const pkgInfoLeftSize = getTextSize(ctx, pkgInfoLeft, LINE_SPACING);
+  const pkgInfoRightSize = getTextSize(ctx, pkgInfoRight, LINE_SPACING);
   const npmLogoSize = getTextSize(ctx, [elems.npmLogo], 0);
-  const pkgInfoSize = getTextSize(ctx, pkgInfo, LINE_SPACING);
+
+  const pkgInfoWidth = Math.max(
+    installCommandSize.width,
+    pkgInfoLeftSize.width + PKG_INFO_COL_SPACING + pkgInfoRightSize.width
+  );
+  const pkgInfoHeight =
+    installCommandSize.height +
+    LINE_SPACING +
+    Math.max(pkgInfoLeftSize.height, pkgInfoRightSize.height);
 
   const pkgInfoX = NPM_LOGO_X + npmLogoSize.width + LOGO_SPACING_RIGHT;
-  canvas.width = pkgInfoX + pkgInfoSize.width + PADDING + BORDER_WIDTH;
+  canvas.width = pkgInfoX + pkgInfoWidth + PADDING + BORDER_WIDTH;
   canvas.height =
-    PKG_INFO_Y + pkgInfoSize.height + LINE_SPACING + PADDING + BORDER_WIDTH;
+    PKG_INFO_Y + pkgInfoHeight + LINE_SPACING + PADDING + BORDER_WIDTH;
   ctx.textBaseline = 'top';
 
   drawBorder(ctx, canvas.width, canvas.height);
   drawText(ctx, elems.npmLogo, NPM_LOGO_X, NPM_LOGO_Y);
-  drawTextLines(ctx, pkgInfo, pkgInfoX, PKG_INFO_Y, LINE_SPACING);
+  drawText(ctx, elems.installCommand, pkgInfoX, PKG_INFO_Y);
+  drawTextLines(
+    ctx,
+    pkgInfoLeft,
+    pkgInfoX,
+    PKG_INFO_Y + installCommandSize.height + LINE_SPACING,
+    LINE_SPACING
+  );
+  drawTextLines(
+    ctx,
+    pkgInfoRight,
+    pkgInfoX + pkgInfoLeftSize.width + PKG_INFO_COL_SPACING,
+    PKG_INFO_Y + installCommandSize.height + LINE_SPACING,
+    LINE_SPACING
+  );
 
   return canvas.createPNGStream();
 }
