@@ -2,9 +2,10 @@ import { PackageInfo } from '../packageInfo';
 import { formatNumber } from '../formatNumber';
 
 export interface BadgeElements {
-  installText: TextElement;
-  dependenciesText: TextElement;
-  downloadsText: TextElement;
+  npmLogo: TextElement;
+  installCommand: TextElement;
+  dependencyCount: TextElement;
+  weeklyDownload: TextElement;
 }
 
 export interface TextElement {
@@ -14,17 +15,21 @@ export interface TextElement {
 
 export function getBadgeElements(pkg: PackageInfo): BadgeElements {
   return {
-    installText: {
+    npmLogo: {
+      text: 'npm',
+      font: '50px gubblebum',
+    },
+    installCommand: {
       text: `npm install ${pkg.name}`,
       font: '14px ubuntu-b',
     },
-    dependenciesText: {
+    dependencyCount: {
       text: `${pkg.dependencies} dependenc${
         pkg.dependencies === 1 ? 'y' : 'ies'
       }`,
       font: '13px ubuntu-r',
     },
-    downloadsText: {
+    weeklyDownload: {
       text: `${formatNumber(pkg.monthlyDownloads)} weekly download${
         pkg.monthlyDownloads === 1 ? '' : 's'
       }`,
