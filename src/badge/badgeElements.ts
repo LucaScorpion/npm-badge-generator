@@ -2,6 +2,7 @@ import { PackageInfo } from '../packageInfo';
 import { formatNumber } from '../formatNumber';
 import { COLORS } from './colors';
 import { timeAgo } from '../timeAgo';
+import { FONTS } from './fonts';
 
 export interface BadgeElements {
   npmLogo: TextElement;
@@ -22,36 +23,36 @@ export function getBadgeElements(pkg: PackageInfo): BadgeElements {
   return {
     npmLogo: {
       text: 'npm',
-      font: '50px gubblebum',
+      font: FONTS.npm,
       color: COLORS.red,
     },
     installCommand: {
       text: `npm install ${pkg.name}`,
-      font: '14px "Ubuntu Mono Bold"',
+      font: FONTS.bold,
       color: COLORS.darkGrey,
     },
     version: {
       text: `version ${pkg.version}`,
-      font: '13px "Ubuntu Mono Regular"',
+      font: FONTS.regular,
       color: COLORS.darkGrey,
     },
     dependencyCount: {
       text: `${pkg.dependencies} dependenc${
         pkg.dependencies === 1 ? 'y' : 'ies'
       }`,
-      font: '13px "Ubuntu Mono Regular"',
+      font: FONTS.regular,
       color: COLORS.darkGrey,
     },
     weeklyDownload: {
       text: `${formatNumber(pkg.weeklyDownloads)} weekly download${
         pkg.weeklyDownloads === 1 ? '' : 's'
       }`,
-      font: '13px "Ubuntu Mono Regular"',
+      font: FONTS.regular,
       color: COLORS.darkGrey,
     },
     updated: {
       text: `updated ${timeAgo(pkg.date)}`,
-      font: '13px "Ubuntu Mono Regular"',
+      font: FONTS.regular,
       color: COLORS.darkGrey,
     },
   };

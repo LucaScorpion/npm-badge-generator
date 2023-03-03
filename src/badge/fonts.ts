@@ -1,7 +1,7 @@
 import path from 'path';
 import { registerFont } from 'canvas';
 
-const fonts = [
+const fontFiles = [
   {
     file: fontPath('Gubblebum_Blocky.ttf'),
     family: 'Gubblebum Blocky',
@@ -16,8 +16,14 @@ const fonts = [
   },
 ];
 
+export const FONTS = {
+  npm: '50px gubblebum',
+  bold: '14px "Ubuntu Mono Bold"',
+  regular: '13px "Ubuntu Mono Regular"',
+};
+
 export function initFonts(): void {
-  for (const font of fonts) {
+  for (const font of fontFiles) {
     console.debug(`Registering font: ${font.family}`);
     registerFont(font.file, { family: font.family });
   }
