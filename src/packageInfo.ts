@@ -1,10 +1,10 @@
 const REGISTRY_URL = 'https://registry.npmjs.com';
-const MONTH_DOWNLOADS_URL = 'https://api.npmjs.org/downloads/point/last-month';
+const WEEK_DOWNLOADS_URL = 'https://api.npmjs.org/downloads/point/last-week';
 
 export async function getPackageInfo(name: string): Promise<PackageInfo> {
   const [packageRes, downloadsRes] = await Promise.all([
     fetch(`${REGISTRY_URL}/${name}`),
-    fetch(`${MONTH_DOWNLOADS_URL}/${name}`),
+    fetch(`${WEEK_DOWNLOADS_URL}/${name}`),
   ]);
 
   if (!packageRes.ok) {

@@ -25,7 +25,7 @@ export function getBadgeElements(pkg: PackageInfo): BadgeElements {
       font: '13px ubuntu-r',
     },
     downloadsText: {
-      text: `${formatNumber(pkg.monthlyDownloads)} monthly download${
+      text: `${formatNumber(pkg.monthlyDownloads)} weekly download${
         pkg.monthlyDownloads === 1 ? '' : 's'
       }`,
       font: '13px ubuntu-r',
