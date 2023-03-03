@@ -27,7 +27,7 @@ export interface PackageInfo {
   size: number;
   date: string;
   license: string;
-  monthlyDownloads: number;
+  weeklyDownloads: number;
 }
 
 interface NpmRegistryInfo {
@@ -66,6 +66,6 @@ function npmRegistryInfoToPackageInfo(
     size: versionInfo.dist.unpackedSize,
     date: npm.time[version],
     license: npm.license,
-    monthlyDownloads: downloads.downloads,
+    weeklyDownloads: downloads.downloads,
   };
 }

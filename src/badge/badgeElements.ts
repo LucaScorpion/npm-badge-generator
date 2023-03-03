@@ -41,8 +41,8 @@ export function getBadgeElements(pkg: PackageInfo): BadgeElements {
       color: COLORS.darkGrey,
     },
     weeklyDownload: {
-      text: `${formatNumber(pkg.monthlyDownloads)} weekly download${
-        pkg.monthlyDownloads === 1 ? '' : 's'
+      text: `${formatNumber(pkg.weeklyDownloads)} weekly download${
+        pkg.weeklyDownloads === 1 ? '' : 's'
       }`,
       font: '13px "Ubuntu Mono Regular"',
       color: COLORS.darkGrey,
