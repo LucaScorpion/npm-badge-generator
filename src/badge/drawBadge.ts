@@ -2,50 +2,43 @@ import { Canvas, CanvasRenderingContext2D, PNGStream } from 'canvas';
 import { PackageInfo } from '../packageInfo';
 import { initFonts } from './fonts';
 import { getBadgeElements } from './badgeElements';
-import { drawText } from './drawText';
+import { drawText, drawTextLines, getTextSize } from './drawText';
+import { COLORS } from './colors';
 
 const BORDER_WIDTH = 2;
-const PADDING_TOP_LEFT = 9;
+const PADDING = 9;
 const LINE_SPACING = 2;
-
-const COLORS = {
-  red: 'rgb(203, 56, 55)',
-  lightGray: 'rgb(244, 244, 242)',
-  darkGrey: 'rgb(102, 102, 102)',
-};
+const LOGO_SPACING_RIGHT = 14;
+const PKG_INFO_Y = 7;
+const NPM_LOGO_Y = 1;
+const NPM_LOGO_X = BORDER_WIDTH + PADDING;
 
 initFonts();
 
 export function drawBadge(pkg: PackageInfo): PNGStream {
-  const width = 400;
-  const height = 80;
-
-  const canvas = new Canvas(width, height);
+  const canvas = new Canvas(0, 0);
   const ctx = canvas.getContext('2d');
   ctx.antialias = 'subpixel';
-  ctx.textBaseline = 'top';
-
-  drawBorder(ctx, width, height);
 
   const elems = getBadgeElements(pkg);
-  let x = BORDER_WIDTH + PADDING_TOP_LEFT;
-  let y = 1;
+  const pkgInfo = [
+    elems.installCommand,
+    elems.dependencyCount,
+    elems.weeklyDownload,
+  ];
 
-  ctx.fillStyle = COLORS.red;
-  const npmLogoSize = drawText(ctx, elems.npmLogo, x, y);
+  const npmLogoSize = getTextSize(ctx, [elems.npmLogo], 0);
+  const pkgInfoSize = getTextSize(ctx, pkgInfo, LINE_SPACING);
 
-  x += npmLogoSize.width + 14;
-  y = 7;
+  const pkgInfoX = NPM_LOGO_X + npmLogoSize.width + LOGO_SPACING_RIGHT;
+  canvas.width = pkgInfoX + pkgInfoSize.width + PADDING + BORDER_WIDTH;
+  canvas.height =
+    PKG_INFO_Y + pkgInfoSize.height + LINE_SPACING + PADDING + BORDER_WIDTH;
+  ctx.textBaseline = 'top';
 
-  ctx.fillStyle = COLORS.darkGrey;
-
-  const installTextSize = drawText(ctx, elems.installCommand, x, y);
-  y += LINE_SPACING + installTextSize.height;
-
-  const depsTextSize = drawText(ctx, elems.dependencyCount, x, y);
-  y += LINE_SPACING + depsTextSize.height;
-
-  drawText(ctx, elems.weeklyDownload, x, y);
+  drawBorder(ctx, canvas.width, canvas.height);
+  drawText(ctx, elems.npmLogo, NPM_LOGO_X, NPM_LOGO_Y);
+  drawTextLines(ctx, pkgInfo, pkgInfoX, PKG_INFO_Y, LINE_SPACING);
 
   return canvas.createPNGStream();
 }
