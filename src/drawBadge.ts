@@ -5,6 +5,12 @@ import { formatNumber } from './formatNumber';
 
 const MARGIN = 4;
 
+const COLORS = {
+  red: 'rgb(203, 56, 55)',
+  lightGray: 'rgb(244, 244, 242)',
+  darkGrey: 'rgb(102, 102, 102)',
+};
+
 initFonts();
 
 export function drawBadge(info: PackageInfo): PNGStream {
@@ -16,8 +22,10 @@ export function drawBadge(info: PackageInfo): PNGStream {
   ctx.antialias = 'subpixel';
 
   drawBox(ctx, MARGIN, width, height);
-  drawNpmLogo(ctx, MARGIN, '');
-  drawNpmInstall(ctx, MARGIN, info.name, '');
+  drawNpmLogo(ctx, MARGIN);
+
+  ctx.fillStyle = COLORS.darkGrey;
+  drawNpmInstall(ctx, MARGIN, info.name);
   drawDependencies(ctx, MARGIN, info.dependencies);
   drawDownloads(ctx, MARGIN, info.monthlyDownloads, 'monthly');
 
@@ -31,8 +39,8 @@ function drawBox(
   height: number
 ) {
   const inset = 2;
-  ctx.strokeStyle = 'rgb(203, 56, 55)';
-  ctx.fillStyle = 'rgb(244, 244, 242)';
+  ctx.strokeStyle = COLORS.red;
+  ctx.fillStyle = COLORS.lightGray;
   ctx.lineCap = 'butt';
   ctx.lineJoin = 'round';
   ctx.lineWidth = 4;
@@ -47,40 +55,21 @@ function drawBox(
   ctx.fill();
 }
 
-function drawNpmLogo(
-  ctx: CanvasRenderingContext2D,
-  margin: number,
-  style: string
-): void {
-  ctx.font =
-    style == 'mini'
-      ? '22px gubblebum'
-      : style == 'compact'
-      ? '40px gubblebum'
-      : '50px gubblebum';
-  ctx.fillStyle = 'rgb(203, 56, 55)';
+function drawNpmLogo(ctx: CanvasRenderingContext2D, margin: number): void {
+  ctx.font = '50px gubblebum';
+  ctx.fillStyle = COLORS.red;
   ctx.textBaseline = 'top';
-  ctx.fillText(
-    'npm',
-    style == 'mini' ? 5 : margin + 7,
-    style == 'mini' ? 0 : 1
-  );
+  ctx.fillText('npm', margin + 7, 1);
 }
 
 function drawNpmInstall(
   ctx: CanvasRenderingContext2D,
   margin: number,
-  name: string,
-  style: string
+  name: string
 ): void {
   ctx.font = '14px ubuntu-b';
-  ctx.fillStyle = 'rgb(102, 102, 102)';
   ctx.textBaseline = 'top';
-  ctx.fillText(
-    `npm install ${name}`,
-    margin + (style == 'mini' ? 50 : style == 'compact' ? 86 : 106),
-    margin + 3
-  );
+  ctx.fillText(`npm install ${name}`, margin + 106, margin + 3);
 }
 
 function drawDependencies(
