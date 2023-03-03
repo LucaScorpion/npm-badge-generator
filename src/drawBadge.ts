@@ -21,7 +21,7 @@ export function drawBadge(info: PackageInfo): PNGStream {
   const ctx = canvas.getContext('2d');
   ctx.antialias = 'subpixel';
 
-  drawBox(ctx, MARGIN, width, height);
+  drawBox(ctx, width, height);
   drawNpmLogo(ctx, MARGIN);
 
   ctx.fillStyle = COLORS.darkGrey;
@@ -32,18 +32,13 @@ export function drawBadge(info: PackageInfo): PNGStream {
   return canvas.createPNGStream();
 }
 
-function drawBox(
-  ctx: CanvasRenderingContext2D,
-  margin: number,
-  width: number,
-  height: number
-) {
+function drawBox(ctx: CanvasRenderingContext2D, width: number, height: number) {
   const inset = 2;
+  ctx.lineWidth = inset * 2;
   ctx.strokeStyle = COLORS.red;
   ctx.fillStyle = COLORS.lightGray;
   ctx.lineCap = 'butt';
   ctx.lineJoin = 'round';
-  ctx.lineWidth = 4;
   ctx.beginPath();
   ctx.lineTo(inset, inset);
   ctx.lineTo(width - inset, inset);
