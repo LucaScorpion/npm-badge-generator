@@ -16,6 +16,7 @@ export function drawBadge(info: PackageInfo): PNGStream {
   drawBox(ctx, MARGIN, width, height);
   drawNpmLogo(ctx, MARGIN, '');
   drawNpmInstall(ctx, MARGIN, info.name, '');
+  drawDependencies(ctx, MARGIN, info.dependencies);
 
   return canvas.createPNGStream();
 }
@@ -77,4 +78,17 @@ function drawBox(
   ctx.closePath();
   ctx.stroke();
   ctx.fill();
+}
+
+function drawDependencies(
+  ctx: CanvasRenderingContext2D,
+  margin: number,
+  dependencies: number
+): void {
+  ctx.font = '13px ubuntu-r';
+  ctx.fillText(
+    `${dependencies} dependenc${dependencies === 1 ? 'y' : 'ies'}`,
+    margin + 106,
+    margin + 19
+  );
 }
