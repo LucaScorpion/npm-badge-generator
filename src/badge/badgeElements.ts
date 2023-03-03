@@ -5,6 +5,7 @@ import { COLORS } from './colors';
 export interface BadgeElements {
   npmLogo: TextElement;
   installCommand: TextElement;
+  version: TextElement;
   dependencyCount: TextElement;
   weeklyDownload: TextElement;
 }
@@ -25,6 +26,11 @@ export function getBadgeElements(pkg: PackageInfo): BadgeElements {
     installCommand: {
       text: `npm install ${pkg.name}`,
       font: '14px "Ubuntu Mono Bold"',
+      color: COLORS.darkGrey,
+    },
+    version: {
+      text: `version ${pkg.version}`,
+      font: '13px "Ubuntu Mono Regular"',
       color: COLORS.darkGrey,
     },
     dependencyCount: {

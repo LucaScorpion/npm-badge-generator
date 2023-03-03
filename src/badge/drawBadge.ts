@@ -23,6 +23,7 @@ export function drawBadge(pkg: PackageInfo): PNGStream {
   const elems = getBadgeElements(pkg);
   const pkgInfo = [
     elems.installCommand,
+    elems.version,
     elems.dependencyCount,
     elems.weeklyDownload,
   ];
