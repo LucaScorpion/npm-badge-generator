@@ -1,24 +1,17 @@
-import express, { Request } from 'express';
+import express from 'express';
 import { getPackageInfo } from './packageInfo';
 import { drawBadge } from './badge/drawBadge';
+import { packageNameMiddleware } from './packageNameMiddleware';
 
 const app = express();
 
-app.get('/ico/*', async function (req, res) {
-  const info = await getPackageInfo(packageNameFromReq(req));
-  const badge = drawBadge(info);
-  res.type('image/png');
-  badge.pipe(res);
+app.get('/npm/*', packageNameMiddleware, async function (req, res, next) {
+  getPackageInfo(req.packageName)
+    .then((pkg) => {
+      res.type('image/png');
+      drawBadge(pkg).pipe(res);
+    })
+    .catch(next);
 });
-
-function packageNameFromReq(req: Request): string {
-  let name = req.params['0'];
-
-  if (name.endsWith('/')) {
-    name = name.substring(0, name.length - 1);
-  }
-
-  return name;
-}
 
 app.listen(parseInt(process.env.PORT || '3000', 10));

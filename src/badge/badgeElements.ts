@@ -1,7 +1,7 @@
 import { PackageInfo } from '../packageInfo';
-import { formatNumber } from '../formatNumber';
+import { formatNumber } from '../utils/formatNumber';
 import { COLORS } from './colors';
-import { timeAgo } from '../timeAgo';
+import { timeAgo } from '../utils/timeAgo';
 import { FONTS } from './fonts';
 
 export interface BadgeElements {
