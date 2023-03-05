@@ -3,8 +3,6 @@ name: Publish
 on:
   release:
     types: [published]
-  push:
-    branches: [set-up-ci]
 
 jobs:
   publish:
@@ -17,5 +15,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/LucaScorpion/npm-badge-generator:${{ github.ref }}
+            ghcr.io/LucaScorpion/npm-badge-generator:${{ github.ref_name }}
             ghcr.io/LucaScorpion/npm-badge-generator:latest
