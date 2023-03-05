@@ -1,7 +1,7 @@
-# NPM Badge Generator
+# npmbadge.com
 
-[![Publish](https://github.com/LucaScorpion/npm-badge-generator/actions/workflows/publish.yml/badge.svg)](https://github.com/LucaScorpion/npm-badge-generator/actions/workflows/publish.yml)
-[![Checks](https://github.com/LucaScorpion/npm-badge-generator/actions/workflows/checks.yml/badge.svg)](https://github.com/LucaScorpion/npm-badge-generator/actions/workflows/checks.yml)
+[![Publish](https://github.com/LucaScorpion/npmbadge.com/actions/workflows/publish.yml/badge.svg)](https://github.com/LucaScorpion/npmbadge.com/actions/workflows/publish.yml)
+[![Checks](https://github.com/LucaScorpion/npmbadge.com/actions/workflows/checks.yml/badge.svg)](https://github.com/LucaScorpion/npmbadge.com/actions/workflows/checks.yml)
 
 Classy NPM badges.
 The spiritual successor to nodei.co.

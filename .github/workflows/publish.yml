@@ -20,5 +20,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/lucascorpion/npm-badge-generator:${{ github.ref_name }}
-            ghcr.io/lucascorpion/npm-badge-generator:latest
+            ghcr.io/lucascorpion/npmbadge.com:${{ github.ref_name }}
+            ghcr.io/lucascorpion/npmbadge.com:latest
