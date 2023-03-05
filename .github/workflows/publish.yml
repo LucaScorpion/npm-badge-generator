@@ -23,6 +23,7 @@ jobs:
             ghcr.io/lucascorpion/npmbadge.com:${{ github.ref_name }}
             ghcr.io/lucascorpion/npmbadge.com:latest
   deploy:
+    needs: [publish]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
