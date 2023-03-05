@@ -1,0 +1,8 @@
+# Ignore everything, and only include specific items.
+*
+
+!package.json
+!package-lock.json
+!tsconfig.json
+!fonts/
+!src/
