@@ -4,14 +4,10 @@ import { drawBadge } from './badge/drawBadge';
 
 const app = express();
 
-app.get('/api/*', async function (req, res) {
-  const info = await getPackageInfo(packageNameFromReq(req));
-  res.send(info);
-});
-
 app.get('/ico/*', async function (req, res) {
   const info = await getPackageInfo(packageNameFromReq(req));
   const badge = drawBadge(info);
+  res.type('image/png');
   badge.pipe(res);
 });
 
