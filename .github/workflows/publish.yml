@@ -3,6 +3,8 @@ name: Publish
 on:
   release:
     types: [published]
+  push:
+    branches: [set-up-ci]
 
 jobs:
   publish:
@@ -13,6 +15,7 @@ jobs:
       - uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./Dockerfile
-          tags: npm-badge-generator:${{ github.ref }}
-# TODO: Test this
+          push: true
+          tags: |
+            ghcr.io/LucaScorpion/npm-badge-generator:${{ github.ref }}
+            ghcr.io/LucaScorpion/npm-badge-generator:latest
