@@ -1,7 +1,10 @@
 # NPM Badge Generator
 
-Generate NPM badges with information about your package!
-Inspired by and based on [nodei.co](https://nodei.co/).
+[![Publish](https://github.com/LucaScorpion/npm-badge-generator/actions/workflows/publish.yml/badge.svg)](https://github.com/LucaScorpion/npm-badge-generator/actions/workflows/publish.yml)
+[![Checks](https://github.com/LucaScorpion/npm-badge-generator/actions/workflows/checks.yml/badge.svg)](https://github.com/LucaScorpion/npm-badge-generator/actions/workflows/checks.yml)
+
+Classy NPM badges.
+The spiritual successor to nodei.co.
 
 ## References
 
