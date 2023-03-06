@@ -4,6 +4,7 @@ import { drawBadge } from './badge/drawBadge';
 import { packageNameMiddleware } from './packageNameMiddleware';
 
 const app = express();
+app.use(express.static('_site'));
 
 app.get('/npm/*', packageNameMiddleware, async function (req, res, next) {
   getPackageInfo(req.packageName)
