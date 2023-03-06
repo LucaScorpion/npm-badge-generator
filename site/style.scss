@@ -51,6 +51,10 @@ main {
         font-size: 14px;
       }
     }
+
+    img {
+      max-width: 100%;
+    }
   }
 
   .make-badge {
@@ -64,6 +68,10 @@ main {
       .info {
         font-style: italic;
       }
+    }
+
+    img {
+      max-width: 100%;
     }
 
     textarea {
