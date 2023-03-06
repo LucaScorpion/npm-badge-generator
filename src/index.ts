@@ -1,18 +1,26 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { getPackageInfo } from './packageInfo';
 import { drawBadge } from './badge/drawBadge';
 import { packageNameMiddleware } from './packageNameMiddleware';
+import { sendCanvasResponse } from './sendCanvasResponse';
 
 const app = express();
 app.use(express.static('_site'));
 
-app.get('/npm/*', packageNameMiddleware, async function (req, res, next) {
-  getPackageInfo(req.packageName)
-    .then((pkg) => {
-      res.type('image/png');
-      drawBadge(pkg).pipe(res);
-    })
-    .catch(next);
-});
+app.get(
+  '/npm/*',
+  packageNameMiddleware,
+  function (req: Request, res: Response, next: NextFunction) {
+    getPackageInfo(req.packageName)
+      .then((pkg) => {
+        // TODO: Get image type from request.
+        const imageType = 'png';
+        sendCanvasResponse(res, drawBadge(pkg, imageType), imageType);
+      })
+      .catch(next);
+  }
+);
 
-app.listen(parseInt(process.env.PORT || '3000', 10));
+const port = parseInt(process.env.PORT || '3000', 10);
+app.listen(port);
+console.info(`Server listening on port ${port}`);

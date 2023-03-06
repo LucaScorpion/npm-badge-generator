@@ -1,9 +1,10 @@
-import { Canvas, CanvasRenderingContext2D, PNGStream } from 'canvas';
+import { Canvas, CanvasRenderingContext2D } from 'canvas';
 import { PackageInfo } from '../packageInfo';
 import { initFonts } from './fonts';
 import { getBadgeElements } from './badgeElements';
 import { drawText, getTextSizes } from './text';
 import { COLORS } from './colors';
+import { CanvasType } from '../sendCanvasResponse';
 
 const BORDER_WIDTH = 2;
 const PADDING = 9;
@@ -16,6 +17,11 @@ const NPM_LOGO_X = BORDER_WIDTH + PADDING;
 
 initFonts();
 
+const canvasTypeMap: Record<CanvasType, 'image' | 'svg'> = {
+  png: 'image',
+  svg: 'svg',
+};
+
 /*
 +---------------------------------------------------+
 | N    npm install package                          |
@@ -23,8 +29,8 @@ initFonts();
 |   M  1,000 weekly downloads  updated 5 months ago |
 +---------------------------------------------------+
  */
-export function drawBadge(pkg: PackageInfo): PNGStream {
-  const canvas = new Canvas(0, 0);
+export function drawBadge(pkg: PackageInfo, type: CanvasType): Canvas {
+  const canvas = new Canvas(0, 0, canvasTypeMap[type]);
   const ctx = canvas.getContext('2d');
   ctx.antialias = 'subpixel';
 
@@ -64,7 +70,7 @@ export function drawBadge(pkg: PackageInfo): PNGStream {
   drawText(ctx, elems.version, pkgInfoRightColX, pkgInfoRowOneY);
   drawText(ctx, elems.updated, pkgInfoRightColX, pkgInfoRowTwoY);
 
-  return canvas.createPNGStream();
+  return canvas;
 }
 
 function drawBorder(
