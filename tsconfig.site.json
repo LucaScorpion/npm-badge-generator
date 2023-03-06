@@ -1,0 +1,10 @@
+{
+  "include": [
+    "site"
+  ],
+  "compilerOptions": {
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
+  }
+}

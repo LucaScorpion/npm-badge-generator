@@ -11,8 +11,12 @@
     "build": "concurrently \"npm:build:server\" \"npm:build:site\"",
     "build:server": "tsc",
     "build:site": "eleventy --input=site",
-    "lint": "eslint \"src/**/*.ts\" --max-warnings 0",
-    "format": "npm run lint -- --fix"
+    "lint": "concurrently \"npm:lint:server\" \"npm:lint:site\"",
+    "lint:server": "eslint \"src/**/*.ts\" --max-warnings 0",
+    "lint:site": "tsc -p tsconfig.site.json",
+    "format": "concurrently \"npm:format:server\" \"npm:format:site\"",
+    "format:server": "npm run lint:server -- --fix",
+    "format:site": "prettier -c \"site/**/*\""
   },
   "author": "Luca Scalzotto (https://github.com/LucaScorpion)",
   "license": "MIT",
