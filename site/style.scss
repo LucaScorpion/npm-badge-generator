@@ -1,14 +1,35 @@
+:root {
+  --background-color: #eee;
+  --text-color: #444;
+  --input-border-color: #aaa;
+  --hr-color: #ccc;
+  --link-color: #1d5aac;
+
+  @media screen and (prefers-color-scheme: dark) {
+    --background-color: #22272e;
+    --text-color: #eee;
+    --input-border-color: #aaa;
+    --hr-color: #444;
+    --link-color: #56a1e6;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   font-size: 18px;
-  color: #444;
+  background-color: var(--background-color);
+  color: var(--text-color);
   margin: 32px auto;
   max-width: 1024px;
   padding: 0 8px;
   font-family: sans-serif;
+}
+
+a {
+  color: var(--link-color);
 }
 
 input,
@@ -16,14 +37,14 @@ textarea {
   font-size: inherit;
   padding: 8px;
   border-radius: 4px;
-  border: 1px solid #aaa;
+  border: 1px solid var(--input-border-color);
   box-shadow: inset 0 0 4px #ccc;
 }
 
 hr {
   border: none;
   height: 1px;
-  background-color: #ccc;
+  background-color: var(--hr-color);
   margin: 32px 0;
 }
 
