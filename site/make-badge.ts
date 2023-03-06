@@ -1,4 +1,5 @@
-const npmBadgeApi = 'https://npmbadge.com/npm/';
+const NPM_BADGE_URL = 'https://npmbadge.com/npm/';
+const DEBOUNCE_TIME = 300;
 
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('make-badge-input') as HTMLInputElement;
@@ -13,30 +14,26 @@ document.addEventListener('DOMContentLoaded', () => {
     'make-badge-embed-html'
   ) as HTMLTextAreaElement;
 
-  input.addEventListener('input', () => {
-    makeBadge(input, imgOutput, info);
-    setEmbedCodes(input.value, embedMd, embedHtml);
-  });
+  input.addEventListener(
+    'input',
+    debounce(() => setBadgeSrc(input, imgOutput))
+  );
+  input.addEventListener('input', () =>
+    setStatusAndEmbedCodes(input.value, info, embedMd, embedHtml)
+  );
   imgOutput.addEventListener('error', () => handleImgError(info));
   imgOutput.addEventListener('load', () => handleImgLoad(info));
 
-  setEmbedCodes('', embedMd, embedHtml);
+  setStatusAndEmbedCodes('', info, embedMd, embedHtml);
 });
 
-function makeBadge(
+function setBadgeSrc(
   input: HTMLInputElement,
-  imgOutput: HTMLImageElement,
-  info: HTMLSpanElement
+  imgOutput: HTMLImageElement
 ): void {
-  // TODO: Debounce the input here.
-
-  info.textContent = 'Loading...';
   const pkg = input.value;
-
   if (pkg) {
-    imgOutput.src = `${npmBadgeApi}${pkg}`;
-  } else {
-    info.textContent = '';
+    imgOutput.src = `${NPM_BADGE_URL}${pkg}`;
   }
 }
 
@@ -48,18 +45,30 @@ function handleImgLoad(info: HTMLSpanElement): void {
   info.textContent = '';
 }
 
-function setEmbedCodes(
+function setStatusAndEmbedCodes(
   name: string,
+  info: HTMLSpanElement,
   embedMd: HTMLTextAreaElement,
   embedHtml: HTMLTextAreaElement
 ): void {
   if (!name) {
     name = '{package}';
+    info.textContent = '';
+  } else {
+    info.textContent = 'Loading...';
   }
 
-  const badgeLink = `${npmBadgeApi}${name}`;
+  const badgeLink = `${NPM_BADGE_URL}${name}`;
   const npmLink = `https://www.npmjs.com/package/${name}`;
 
   embedMd.value = `[![npm](${badgeLink})](${npmLink})`;
   embedHtml.value = `<a href="${npmLink}"><img src="${badgeLink}"></a>`;
+}
+
+function debounce(fn: () => void): () => void {
+  let timer: number;
+  return () => {
+    clearTimeout(timer);
+    timer = window.setTimeout(() => fn(), DEBOUNCE_TIME);
+  };
 }
