@@ -15,5 +15,8 @@
   "env": {
     "node": true,
     "jest": true
-  }
+  },
+  "ignorePatterns": [
+    "site/"
+  ]
 }
