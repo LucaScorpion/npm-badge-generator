@@ -7,7 +7,7 @@
   "scripts": {
     "start": "concurrently \"npm:start:server\" \"npm:start:site\"",
     "start:server": "ts-node-dev src/index.ts",
-    "start:site": "npm run build:site -- --serve",
+    "start:site": "npm run build:site -- --watch",
     "build": "concurrently \"npm:build:server\" \"npm:build:site\"",
     "build:server": "tsc",
     "build:site": "eleventy --input=site",

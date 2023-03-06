@@ -1,8 +1,10 @@
 # Ignore everything, and only include specific items.
 *
 
+!.eleventy.js
 !package.json
 !package-lock.json
 !tsconfig.json
 !fonts/
+!site/
 !src/

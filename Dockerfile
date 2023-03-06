@@ -18,6 +18,7 @@ ENV NODE_ENV="production"
 COPY --from=build /app/node_modules/ node_modules/
 COPY --from=build /app/build/ build/
 COPY --from=build /app/fonts/ fonts/
+COPY --from=build /app/_site/ _site/
 
 EXPOSE 3000
 ENTRYPOINT ["node", "./build/index.js"]
