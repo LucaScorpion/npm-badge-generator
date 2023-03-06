@@ -13,10 +13,10 @@
     "build:site": "eleventy --input=site",
     "lint": "concurrently \"npm:lint:server\" \"npm:lint:site\"",
     "lint:server": "eslint \"src/**/*.ts\" --max-warnings 0",
-    "lint:site": "tsc -p tsconfig.site.json",
+    "lint:site": "tsc -p tsconfig.site.json && prettier -c \"site/**/*\"",
     "format": "concurrently \"npm:format:server\" \"npm:format:site\"",
     "format:server": "npm run lint:server -- --fix",
-    "format:site": "prettier -c \"site/**/*\""
+    "format:site": "prettier -w \"site/**/*\""
   },
   "author": "Luca Scalzotto (https://github.com/LucaScorpion)",
   "license": "MIT",
