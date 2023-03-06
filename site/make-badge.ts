@@ -33,7 +33,6 @@ function setBadgeSrc(
 ): void {
   const pkg = input.value;
   if (pkg) {
-    console.log(pkg);
     imgOutput.src = `${NPM_BADGE_URL}${pkg}`;
   }
 }
