@@ -5,6 +5,7 @@ import { packageNameMiddleware } from './packageNameMiddleware';
 import { sendCanvasResponse } from './sendCanvasResponse';
 
 const app = express();
+app.use(express.static('_site'));
 
 app.get(
   '/npm/*',

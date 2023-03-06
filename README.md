@@ -1,4 +1,4 @@
-# npmbadge.com
+# [npmbadge.com](https://npmbadge.com)
 
 [![Publish](https://github.com/LucaScorpion/npmbadge.com/actions/workflows/publish.yml/badge.svg)](https://github.com/LucaScorpion/npmbadge.com/actions/workflows/publish.yml)
 [![Checks](https://github.com/LucaScorpion/npmbadge.com/actions/workflows/checks.yml/badge.svg)](https://github.com/LucaScorpion/npmbadge.com/actions/workflows/checks.yml)
@@ -8,16 +8,16 @@ The spiritual successor to nodei.co.
 
 ## Development
 
-To start the server locally, simply run these commands:
+To start the server locally, run these commands:
 
 ```shell
 npm i
 npm start
 ```
 
-The server will run on port 3000.
-You can now generate a badge by going to `http://localhost:3000/npm/{package-name}`,
-for example: http://localhost:3000/npm/express.
+You can now view the site at http://localhost:3000.
+The frontend is also served by the server.
+Any changes to both the server and frontend will be automatically picked up and recompiled.
 
 ### References
 
