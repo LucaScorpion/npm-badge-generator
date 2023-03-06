@@ -9,6 +9,7 @@ const fontFiles = [
   {
     file: fontPath('Ubuntu_Mono_Bold.ttf'),
     family: 'Ubuntu Mono Bold',
+    weight: 'bold',
   },
   {
     file: fontPath('Ubuntu_Mono_Regular.ttf'),
@@ -18,14 +19,17 @@ const fontFiles = [
 
 export const FONTS = {
   npm: '50px gubblebum',
-  bold: '14px "Ubuntu Mono Bold"',
-  regular: '13px "Ubuntu Mono Regular"',
+  bold: 'bold 14px "Ubuntu Mono"',
+  regular: '13px "Ubuntu Mono"',
 };
 
 export function initFonts(): void {
   for (const font of fontFiles) {
     console.debug(`Registering font: ${font.family}`);
-    registerFont(font.file, { family: font.family });
+    registerFont(font.file, {
+      family: font.family,
+      weight: font.weight || undefined,
+    });
   }
 }
 
