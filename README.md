@@ -3,8 +3,7 @@
 [![Publish](https://github.com/LucaScorpion/npmbadge.com/actions/workflows/publish.yml/badge.svg)](https://github.com/LucaScorpion/npmbadge.com/actions/workflows/publish.yml)
 [![Checks](https://github.com/LucaScorpion/npmbadge.com/actions/workflows/checks.yml/badge.svg)](https://github.com/LucaScorpion/npmbadge.com/actions/workflows/checks.yml)
 
-Classy NPM badges.
-The spiritual successor to nodei.co.
+Classy npm badges.
 
 ## Development
 
@@ -21,4 +20,4 @@ Any changes to both the server and frontend will be automatically picked up and 
 
 ### References
 
-NPM registry API docs: https://github.com/npm/registry/tree/master/docs
+npm registry API docs: https://github.com/npm/registry/tree/master/docs
