@@ -2,16 +2,18 @@ const sass = require('sass');
 const esbuild = require('esbuild');
 
 module.exports = function (eleventyConfig) {
+  eleventyConfig.addPassthroughCopy('site/*.ico');
+
   // See: https://www.11ty.dev/docs/languages/custom/#example-add-sass-support-to-eleventy
   eleventyConfig.addTemplateFormats('scss');
   eleventyConfig.addExtension('scss', {
     outputFileExtension: 'css',
     compile: function (inputContent) {
       const result = sass.compileString(inputContent, {
-        style: 'compressed'
+        style: 'compressed',
       });
       return () => result.css;
-    }
+    },
   });
 
   eleventyConfig.addTemplateFormats('ts');
@@ -21,16 +23,16 @@ module.exports = function (eleventyConfig) {
       const result = await esbuild.build({
         stdin: {
           contents: inputContent,
-          loader: 'ts'
+          loader: 'ts',
         },
         bundle: true,
         minify: true,
         format: 'cjs',
         write: false,
-        target: 'es2018'
+        target: 'es2018',
       });
 
       return () => result.outputFiles[0].text;
-    }
+    },
   });
 };
