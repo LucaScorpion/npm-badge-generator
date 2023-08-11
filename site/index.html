@@ -59,6 +59,11 @@
       <div class="make-badge">
         <div class="input-row">
           <input id="make-badge-input" type="text" placeholder="package-name" />
+          <select id="make-badge-mode">
+            <option value="install">install</option>
+            <option value="global">install -g</option>
+            <option value="npx">npx</option>
+          </select>
           <span id="make-badge-info" class="info"></span>
         </div>
         <img id="make-badge-img" src="/npm/express" alt="" />

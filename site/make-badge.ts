@@ -3,6 +3,9 @@ const DEBOUNCE_TIME = 300;
 
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('make-badge-input') as HTMLInputElement;
+  const modeSelect = document.getElementById(
+    'make-badge-mode'
+  ) as HTMLSelectElement;
   const imgOutput = document.getElementById(
     'make-badge-img'
   ) as HTMLImageElement;
@@ -14,26 +17,43 @@ document.addEventListener('DOMContentLoaded', () => {
     'make-badge-embed-html'
   ) as HTMLTextAreaElement;
 
-  input.addEventListener(
-    'input',
-    debounce(() => setBadgeSrc(input, imgOutput))
+  const setBadgeSrcDebounced = debounce(() =>
+    setBadgeSrc(input, modeSelect, imgOutput)
   );
-  input.addEventListener('input', () =>
-    setStatusAndEmbedCodes(input.value, info, embedMd, embedHtml)
-  );
+  const setStatusInstant = () =>
+    setStatusAndEmbedCodes(
+      input.value,
+      modeSelect.value,
+      info,
+      embedMd,
+      embedHtml
+    );
+
+  input.addEventListener('input', setBadgeSrcDebounced);
+  input.addEventListener('input', setStatusInstant);
+  modeSelect.addEventListener('change', setBadgeSrcDebounced);
+  modeSelect.addEventListener('change', setStatusInstant);
+
   imgOutput.addEventListener('error', () => handleImgError(info));
   imgOutput.addEventListener('load', () => handleImgLoad(info));
 
-  setStatusAndEmbedCodes('', info, embedMd, embedHtml);
+  setStatusAndEmbedCodes('', 'install', info, embedMd, embedHtml);
 });
 
 function setBadgeSrc(
   input: HTMLInputElement,
+  modeSelect: HTMLSelectElement,
   imgOutput: HTMLImageElement
 ): void {
   const pkg = input.value;
+  const mode = modeSelect.value;
+
   if (pkg) {
-    imgOutput.src = `${NPM_BADGE_URL}${pkg}`;
+    let src = `${NPM_BADGE_URL}${pkg}`;
+    if (mode !== 'install') {
+      src = `${src}?mode=${mode}`;
+    }
+    imgOutput.src = src;
   }
 }
 
@@ -47,6 +67,7 @@ function handleImgLoad(info: HTMLSpanElement): void {
 
 function setStatusAndEmbedCodes(
   name: string,
+  mode: string,
   info: HTMLSpanElement,
   embedMd: HTMLTextAreaElement,
   embedHtml: HTMLTextAreaElement
@@ -57,8 +78,9 @@ function setStatusAndEmbedCodes(
   } else {
     info.textContent = 'Loading...';
   }
+  const modeQuery = mode === 'install' ? '' : `?mode=${mode}`;
 
-  const badgeLink = `${NPM_BADGE_URL}${name}`;
+  const badgeLink = `${NPM_BADGE_URL}${name}${modeQuery}`;
   const npmLink = `https://www.npmjs.com/package/${name}`;
 
   embedMd.value = `[![npm](${badgeLink})](${npmLink})`;
