@@ -63,6 +63,7 @@ main {
     display: flex;
     justify-content: space-around;
     gap: 32px;
+    margin-bottom: 32px;
 
     @media screen and (max-width: 1024px) {
       flex-direction: column;
