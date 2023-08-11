@@ -61,11 +61,11 @@ export function getBadgeElements(
     },
   };
 
-  if (installMode == 'global') {
+  if (installMode === 'global') {
     result.installCommand.text = `npm install -g ${pkg.name}`;
   }
 
-  if (installMode == 'npx') {
+  if (installMode === 'npx') {
     result.installCommand.text = `npx ${pkg.name}`;
   }
 
