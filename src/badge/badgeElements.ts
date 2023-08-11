@@ -3,6 +3,7 @@ import { formatNumber } from '../utils/formatNumber';
 import { COLORS } from './colors';
 import { timeAgo } from '../utils/timeAgo';
 import { FONTS } from './fonts';
+import { InstallMode } from '../installMode';
 
 export interface BadgeElements {
   npmLogo: TextElement;
@@ -19,8 +20,11 @@ export interface TextElement {
   color: string;
 }
 
-export function getBadgeElements(pkg: PackageInfo): BadgeElements {
-  return {
+export function getBadgeElements(
+  pkg: PackageInfo,
+  installMode?: InstallMode
+): BadgeElements {
+  const result: BadgeElements = {
     npmLogo: {
       text: 'npm',
       font: FONTS.npm,
@@ -56,4 +60,14 @@ export function getBadgeElements(pkg: PackageInfo): BadgeElements {
       color: COLORS.darkGrey,
     },
   };
+
+  if (installMode == 'global') {
+    result.installCommand.text = `npm install -g ${pkg.name}`;
+  }
+
+  if (installMode == 'npx') {
+    result.installCommand.text = `npx ${pkg.name}`;
+  }
+
+  return result;
 }

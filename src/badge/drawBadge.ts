@@ -4,6 +4,7 @@ import { initFonts } from './fonts';
 import { getBadgeElements } from './badgeElements';
 import { drawText, getTextSizes } from './text';
 import { COLORS } from './colors';
+import { InstallMode } from '../installMode';
 
 const BORDER_WIDTH = 2;
 const PADDING = 9;
@@ -23,12 +24,15 @@ initFonts();
 |   M  1,000 weekly downloads  updated 5 months ago |
 +---------------------------------------------------+
  */
-export function drawBadge(pkg: PackageInfo): PNGStream {
+export function drawBadge(
+  pkg: PackageInfo,
+  installMode?: InstallMode
+): PNGStream {
   const canvas = new Canvas(0, 0);
   const ctx = canvas.getContext('2d');
   ctx.antialias = 'subpixel';
 
-  const elems = getBadgeElements(pkg);
+  const elems = getBadgeElements(pkg, installMode);
   const sizes = getTextSizes(ctx, elems);
 
   const pkgInfoX = NPM_LOGO_X + sizes.npmLogo.width + LOGO_SPACING_RIGHT;
