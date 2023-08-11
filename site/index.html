@@ -35,6 +35,23 @@
           <img src="/npm/@11ty/eleventy" alt="npm badge for Eleventy" />
         </div>
       </div>
+      <div class="examples">
+        <div>
+          <a href="/npm/@nestjs/cli?mode=global">
+            https://npmbadge.com/npm/@nestjs/cli?mode=global
+          </a>
+          <img
+            src="/npm/@nestjs/cli?mode=global"
+            alt="npm badge for Nest CLI"
+          />
+        </div>
+        <div>
+          <a href="/npm/serve?mode=npx">
+            https://npmbadge.com/npm/serve?mode=npx
+          </a>
+          <img src="/npm/serve?mode=npx" alt="npm badge for Serve" />
+        </div>
+      </div>
 
       <hr />
 
@@ -42,6 +59,11 @@
       <div class="make-badge">
         <div class="input-row">
           <input id="make-badge-input" type="text" placeholder="package-name" />
+          <select id="make-badge-mode">
+            <option value="install">install</option>
+            <option value="global">install -g</option>
+            <option value="npx">npx</option>
+          </select>
           <span id="make-badge-info" class="info"></span>
         </div>
         <img id="make-badge-img" src="/npm/express" alt="" />

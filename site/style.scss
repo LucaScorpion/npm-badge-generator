@@ -37,7 +37,8 @@ a {
 }
 
 input,
-textarea {
+textarea,
+select {
   font-size: inherit;
   color: inherit;
   padding: 8px;
@@ -63,6 +64,7 @@ main {
     display: flex;
     justify-content: space-around;
     gap: 32px;
+    margin-bottom: 32px;
 
     @media screen and (max-width: 1024px) {
       flex-direction: column;
@@ -89,7 +91,8 @@ main {
     .input-row {
       margin-bottom: 16px;
 
-      input {
+      input,
+      select {
         margin-right: 8px;
       }
 
