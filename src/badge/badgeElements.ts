@@ -69,5 +69,9 @@ export function getBadgeElements(
     result.installCommand.text = `npx ${pkg.name}`;
   }
 
+  if(installMode === 'yarn') {
+    result.installCommand.text = `yarn add ${pkg.name}`;
+  }
+
   return result;
 }
