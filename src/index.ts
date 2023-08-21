@@ -12,6 +12,7 @@ app.get('/npm/*', packageNameMiddleware, async function (req, res, next) {
     .then((pkg) => {
       const { mode } = req.query;
       res.type('image/png');
+      res.set('Cache-Control', 'no-cache, no-store');
       drawBadge(pkg, parseInstallMode(mode)).pipe(res);
     })
     .catch(next);
