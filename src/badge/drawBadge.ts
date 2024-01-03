@@ -1,6 +1,5 @@
 import { Canvas, CanvasRenderingContext2D, PNGStream } from 'canvas';
 import { PackageInfo } from '../packageInfo';
-import { initFonts } from './fonts';
 import { getBadgeElements } from './badgeElements';
 import { drawText, getTextSizes } from './text';
 import { COLORS } from './colors';
@@ -8,7 +7,7 @@ import { InstallMode } from '../installMode';
 
 const BORDER_WIDTH = 2;
 const PADDING = 9;
-const LINE_SPACING = 2;
+const LINE_SPACING = 1;
 const LOGO_SPACING_RIGHT = 14;
 const PKG_INFO_Y = 7;
 const PKG_INFO_COL_SPACING = 14;
