@@ -1,4 +1,4 @@
-FROM node:18 AS build
+FROM node:20 AS build
 
 WORKDIR /app
 ADD . .
@@ -10,7 +10,7 @@ RUN npm run build
 ENV NODE_ENV="production"
 RUN npm i
 
-FROM node:18
+FROM node:20
 
 WORKDIR /app
 ENV NODE_ENV="production"
