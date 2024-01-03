@@ -40,7 +40,6 @@ export function drawBadge(
     PKG_INFO_COL_SPACING;
   const pkgInfoRowOneY =
     PKG_INFO_Y + sizes.installCommand.height + LINE_SPACING;
-  console.log(sizes.installCommand.height);
   const pkgInfoRowTwoY =
     pkgInfoRowOneY +
     Math.max(sizes.dependencyCount.height, sizes.version.height) +

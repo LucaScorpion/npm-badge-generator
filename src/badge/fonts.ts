@@ -48,7 +48,7 @@ export function initFonts(): void {
     console.debug(`Registering font: ${font.family}`);
     registerFont(font.file, {
       family: font.family,
-      weight: font.weight || undefined,
+      weight: font.weight ?? undefined,
     });
   }
 
