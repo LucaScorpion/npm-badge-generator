@@ -1,5 +1,11 @@
 import path from 'path';
-import { registerFont } from 'canvas';
+import { Canvas, registerFont } from 'canvas';
+
+// TODO: Make this nicer.
+const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+const numbers = '0123456789';
+const specialChars = '.,:-/';
+const allCharacters = `${alphabet}${alphabet.toUpperCase()}${numbers}${specialChars}`;
 
 const fontFiles = [
   {
@@ -17,10 +23,24 @@ const fontFiles = [
   },
 ];
 
-export const FONTS = {
-  npm: '50px gubblebum',
-  bold: 'bold 14px "Ubuntu Mono"',
-  regular: '13px "Ubuntu Mono"',
+export interface Font {
+  name: string;
+  lineHeight: number;
+}
+
+export const FONTS: Record<string, Font> = {
+  npm: {
+    name: '50px gubblebum',
+    lineHeight: 0,
+  },
+  bold: {
+    name: 'bold 14px "Ubuntu Mono"',
+    lineHeight: 0,
+  },
+  regular: {
+    name: '13px "Ubuntu Mono"',
+    lineHeight: 0,
+  },
 };
 
 export function initFonts(): void {
@@ -31,8 +51,21 @@ export function initFonts(): void {
       weight: font.weight || undefined,
     });
   }
+
+  for (const font of Object.values(FONTS)) {
+    font.lineHeight = calculateFontLineHeight(font.name);
+  }
 }
 
 function fontPath(file: string): string {
   return path.join(__dirname, '../../fonts', file);
+}
+
+function calculateFontLineHeight(font: string): number {
+  const canvas = new Canvas(0, 0);
+  const ctx = canvas.getContext('2d');
+  ctx.antialias = 'subpixel';
+  ctx.font = font;
+  const metrics = ctx.measureText(allCharacters);
+  return metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 }

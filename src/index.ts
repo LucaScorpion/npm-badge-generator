@@ -3,6 +3,9 @@ import { getPackageInfo } from './packageInfo';
 import { drawBadge } from './badge/drawBadge';
 import { packageNameMiddleware } from './packageNameMiddleware';
 import { parseInstallMode } from './installMode';
+import { initFonts } from './badge/fonts';
+
+initFonts();
 
 const app = express();
 app.use(express.static('_site'));

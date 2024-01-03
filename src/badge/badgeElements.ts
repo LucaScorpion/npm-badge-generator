@@ -2,7 +2,7 @@ import { PackageInfo } from '../packageInfo';
 import { formatNumber } from '../utils/formatNumber';
 import { COLORS } from './colors';
 import { timeAgo } from '../utils/timeAgo';
-import { FONTS } from './fonts';
+import { Font, FONTS } from './fonts';
 import { InstallMode } from '../installMode';
 
 export interface BadgeElements {
@@ -16,7 +16,7 @@ export interface BadgeElements {
 
 export interface TextElement {
   text: string;
-  font: string;
+  font: Font;
   color: string;
 }
 

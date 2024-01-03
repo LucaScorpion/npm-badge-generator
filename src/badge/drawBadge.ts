@@ -15,8 +15,6 @@ const PKG_INFO_COL_SPACING = 14;
 const NPM_LOGO_Y = 1;
 const NPM_LOGO_X = BORDER_WIDTH + PADDING;
 
-initFonts();
-
 /*
 +---------------------------------------------------+
 | N    npm install package                          |
@@ -42,6 +40,7 @@ export function drawBadge(
     PKG_INFO_COL_SPACING;
   const pkgInfoRowOneY =
     PKG_INFO_Y + sizes.installCommand.height + LINE_SPACING;
+  console.log(sizes.installCommand.height);
   const pkgInfoRowTwoY =
     pkgInfoRowOneY +
     Math.max(sizes.dependencyCount.height, sizes.version.height) +

@@ -12,7 +12,7 @@ export function drawText(
   x: number,
   y: number
 ): void {
-  ctx.font = elem.font;
+  ctx.font = elem.font.name;
   ctx.fillStyle = elem.color;
   ctx.fillText(elem.text, x, y);
 }
@@ -21,12 +21,12 @@ export function getTextSize(
   ctx: CanvasRenderingContext2D,
   elem: TextElement
 ): TextSize {
-  ctx.font = elem.font;
+  ctx.font = elem.font.name;
   const metrics = ctx.measureText(elem.text);
 
   return {
     width: metrics.width,
-    height: metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent,
+    height: elem.font.lineHeight,
   };
 }
 
