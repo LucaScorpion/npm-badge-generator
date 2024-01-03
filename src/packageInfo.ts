@@ -10,13 +10,14 @@ export async function getPackageInfo(name: string): Promise<PackageInfo> {
   if (!packageRes.ok) {
     throw new Error('Could not get package info from NPM.');
   }
+  const packageInfo: NpmRegistryInfo = await packageRes.json();
 
-  if (!downloadsRes.ok) {
-    throw new Error('Could not get downloads info from NPM.');
+  // Default the downloads to 0, because the API call returns an error for very new packages which do exist.
+  let downloadsInfo: NpmDownloadsInfo = { downloads: 0 };
+  if (downloadsRes.ok) {
+    downloadsInfo = await downloadsRes.json();
   }
 
-  const packageInfo = await packageRes.json();
-  const downloadsInfo = await downloadsRes.json();
   return npmRegistryInfoToPackageInfo(packageInfo, downloadsInfo);
 }
 
