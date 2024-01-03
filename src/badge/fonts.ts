@@ -1,11 +1,8 @@
 import path from 'path';
 import { Canvas, registerFont } from 'canvas';
 
-// TODO: Make this nicer.
-const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-const numbers = '0123456789';
-const specialChars = '.,:-/';
-const allCharacters = `${alphabet}${alphabet.toUpperCase()}${numbers}${specialChars}`;
+// All characters that we use in the badge, used to calculate font heights.
+const allCharacters = `abcdefghijklmnopqrstuvwxyz0123456789.,:-_/@`;
 
 const fontFiles = [
   {
